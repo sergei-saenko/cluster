@@ -1,0 +1,29 @@
+---
+  - name: iSCSI Target Provision
+    hosts: nas
+    remote_user: root
+
+    tasks:
+
+      - name: Package installation
+        yum:
+          name:
+            - targetcli
+            - lvm2
+          state: latest
+        ignore_errors: true
+
+      - name: BACKEND - open ports on firewalld
+        firewalld: 
+          service: "{{ item }}"
+          permanent: yes
+          immediate: yes
+          state: enabled
+        loop:
+          - iscsi-target
+
+      - name: Enable iSCSI Target Daemon
+        service: 
+          name: target
+          state: started
+          enabled: yes

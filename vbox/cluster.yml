@@ -1,0 +1,35 @@
+---
+  - name:  Cluster configuration
+    hosts: cluster
+    remote_user: root
+    
+    tasks:
+     
+      - name: CLUSTER - Open firewall
+        firewalld: 
+            service: high-availability
+            permanent: yes
+            immediate: yes
+            state: enabled
+
+      - name: CLUSTER NODES - install cluster packages
+        yum:
+          name:
+            - pcs 
+            - pacemaker 
+            - fence-agents-all
+          state: latest
+          enablerepo: ha
+
+      - name: CLUSTER NODES - enable php-fpm service
+        service: 
+          name: pcsd
+          state: started
+          enabled: yes
+
+  
+
+  
+  
+        
+         

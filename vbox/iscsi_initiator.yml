@@ -1,0 +1,14 @@
+---
+  - name: iSCSI Initiator Provision
+    hosts: cluster
+    remote_user: root
+
+    tasks:
+
+      - name: Package installation
+        yum:
+          name:
+            - iscsi-initiator-utils
+            - lvm2
+          state: latest
+        ignore_errors: true

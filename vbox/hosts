@@ -1,0 +1,9 @@
+[nas]
+nas
+
+[cluster]
+server1
+server2
+
+[dns]
+nas
